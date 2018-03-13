@@ -1,0 +1,752 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>trajOptLib package &#8212; trajOptLib  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="trajoptlib-package">
+<h1>trajOptLib package<a class="headerlink" href="#trajoptlib-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="trajOptLib.io.html">trajOptLib.io package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.io.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.io.html#module-trajOptLib.io.argument">trajOptLib.io.argument module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.io.html#module-trajOptLib.io.fileio">trajOptLib.io.fileio module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.io.html#module-trajOptLib.io.printio">trajOptLib.io.printio module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.io.html#module-trajOptLib.io.stringio">trajOptLib.io.stringio module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.io.html#module-trajOptLib.io">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="trajOptLib.plot.html">trajOptLib.plot package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.plot.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.plot.html#module-trajOptLib.plot.common">trajOptLib.plot.common module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.plot.html#module-trajOptLib.plot.compare">trajOptLib.plot.compare module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.plot.html#module-trajOptLib.plot.plot3d">trajOptLib.plot.plot3d module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajOptLib.plot.html#module-trajOptLib.plot">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-trajOptLib.snoptWrapper">
+<span id="trajoptlib-snoptwrapper-module"></span><h2>trajOptLib.snoptWrapper module<a class="headerlink" href="#module-trajOptLib.snoptWrapper" title="Permalink to this headline">¶</a></h2>
+<p>snoptWrapper.py</p>
+<p>Wrapper functions for calling snopt</p>
+<dl class="function">
+<dt id="trajOptLib.snoptWrapper.directSolve">
+<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">directSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.snoptWrapper.directSolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fun</strong> – A function like y = f(x) where x, y are np.ndarray</li>
+<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
+<li><strong>nf</strong> – int, length of y</li>
+<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
+<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
+<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
+<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
+<li><strong>cfg</strong> – libsnopt.snoptConfig, configuration of snopt solver</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.snoptWrapper.gradSolve">
+<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">gradSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.snoptWrapper.gradSolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fun</strong> – A function like y, J = f(x) where x, y, J are np.ndarray</li>
+<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
+<li><strong>nf</strong> – int, length of y</li>
+<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
+<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
+<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
+<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
+<li><strong>cfg</strong> – libsnopt.snoptConfig, configuration of snopt solver</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.snoptWrapper.inDirectSolve">
+<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">inDirectSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.snoptWrapper.inDirectSolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fun</strong> – A function like f(x, y) where x, y are np.ndarray</li>
+<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
+<li><strong>nf</strong> – int, length of y</li>
+<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
+<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
+<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
+<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
+<li><strong>cfg</strong> – libsnopt.snoptConfig, configuration of snopt solver</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.snoptWrapper.inGradSolve">
+<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">inGradSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.snoptWrapper.inGradSolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fun</strong> – A function like f(x, y, J) where x, y, J are np.ndarray</li>
+<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
+<li><strong>nf</strong> – int, length of y</li>
+<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
+<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
+<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
+<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
+<li><strong>cfg</strong> – libsnopt.snoptConfig, configuration of snopt solver</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.snoptWrapper.inSpGradSolve">
+<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">inSpGradSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>nG=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.snoptWrapper.inSpGradSolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fun</strong> – A function like f(x, y, G, row, col, rec) where x, y are np.ndarray, J is scipy.sparse.csc_matrix</li>
+<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
+<li><strong>nf</strong> – int, number of f</li>
+<li><strong>nG</strong> – int number nonzero in Jacobian</li>
+<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
+<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
+<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
+<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
+<li><strong>cfg</strong> – libsnopt.snoptConfig, configuration of snopt solver</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.snoptWrapper.parseResult">
+<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">parseResult</code><span class="sig-paren">(</span><em>rst</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.snoptWrapper.parseResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the results returned by snopt and convert to a dict.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.snoptWrapper.spGradSolve">
+<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">spGradSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>nG=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.snoptWrapper.spGradSolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fun</strong> – A function like y, spJ = f(x) where x, y are np.ndarray, J is scipy.sparse.csc_matrix</li>
+<li><strong>nf</strong> – int, length of y</li>
+<li><strong>nG</strong> – int, nnz of spJ</li>
+<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
+<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
+<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
+<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
+<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
+<li><strong>cfg</strong> – libsnopt.snoptConfig, configuration of snopt solver</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-trajOptLib.trajOptBase">
+<span id="trajoptlib-trajoptbase-module"></span><h2>trajOptLib.trajOptBase module<a class="headerlink" href="#module-trajOptLib.trajOptBase" title="Permalink to this headline">¶</a></h2>
+<p>trajOptBase.py</p>
+<p>Classes ready to be used for trajectory optimization.</p>
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.baseFun">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">baseFun</code><span class="sig-paren">(</span><em>nx</em>, <em>nf</em>, <em>gradmode</em>, <em>ng=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.baseFun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.libsnopt.funBase</span></code></p>
+<p>Base class for functions, including both objective and constraint.</p>
+<p>This function should be inherited to define your own functions.
+A function with user supplied gradient information, nx, nf, ng should be set.</p>
+<dl class="attribute">
+<dt id="trajOptLib.trajOptBase.baseFun.grad">
+<code class="descname">grad</code><em class="property"> = ['user', 'no']</em><a class="headerlink" href="#trajOptLib.trajOptBase.baseFun.grad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.linearObj">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">linearObj</code><span class="sig-paren">(</span><em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.linearObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
+<p>Class for directly add linear objective function over the entire decision variable.</p>
+<p>It serves for objective of form <img class="math" src="_images/math/fd03693084d2bab5892d4875109dd89e0265c8fe.png" alt="y=Ax"/> where <img class="math" src="_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is the collected long vector.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.linearPointObj">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">linearPointObj</code><span class="sig-paren">(</span><em>index</em>, <em>A</em>, <em>nx</em>, <em>nu</em>, <em>np</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.linearPointObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
+<p>Class for directly add linear objective function over the entire decision variable.</p>
+<p>It serves for objective function of the form <img class="math" src="_images/math/fd03693084d2bab5892d4875109dd89e0265c8fe.png" alt="y=Ax"/> where <img class="math" src="_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is the concatenated vector of state, 
+control and parameter at a selected index.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.lqrObj">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">lqrObj</code><span class="sig-paren">(</span><em>F=None</em>, <em>Q=None</em>, <em>R=None</em>, <em>xfbase=None</em>, <em>xbase=None</em>, <em>ubase=None</em>, <em>tfweight=None</em>, <em>P=None</em>, <em>pbase=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.lqrObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for LQR objective since it is so common. It is treated independently with pathObj.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.nonDiagLQRObj">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">nonDiagLQRObj</code><a class="headerlink" href="#trajOptLib.trajOptBase.nonDiagLQRObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for LQR objective with non-diagonal entries</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.nonLinConstr">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">nonLinConstr</code><span class="sig-paren">(</span><em>nsol</em>, <em>nc</em>, <em>lb=None</em>, <em>ub=None</em>, <em>gradmode='user'</em>, <em>nG=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.nonLinConstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
+<p>Class for defining constraint function in a general form.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.nonLinObj">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">nonLinObj</code><span class="sig-paren">(</span><em>nsol</em>, <em>gradmode='user'</em>, <em>nG=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.nonLinObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
+<p>Class for general nonlinear objective function over the entire decision variables.</p>
+<p>The objective function is basically calculated by calling a nonlinear function.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.nonPointObj">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">nonPointObj</code><span class="sig-paren">(</span><em>index</em>, <em>nx</em>, <em>nu</em>, <em>np=0</em>, <em>gradmode='user'</em>, <em>nG=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.nonPointObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
+<p>Class for defining point objective function.</p>
+<p>Similar to linear case. A function that takes the concatenated vector at a selected index is used.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.pointConstr">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">pointConstr</code><span class="sig-paren">(</span><em>index</em>, <em>nc</em>, <em>nx</em>, <em>nu</em>, <em>np=0</em>, <em>lb=None</em>, <em>ub=None</em>, <em>gradmode='user'</em>, <em>nG=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.pointConstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
+<p>Class for defining point constraint function.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptBase.system">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">system</code><span class="sig-paren">(</span><em>nx</em>, <em>nu</em>, <em>np=0</em>, <em>ode='RK4'</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Description of the dynamical system.</p>
+<p>To define a dynamical system, we need to specify dimension of state, control, and parameter.
+Optionally, integration approach can be selected.
+This function should be inherited and users are supposed to override dyn/Jdyn functions.</p>
+<dl class="method">
+<dt id="trajOptLib.trajOptBase.system.Jdyn">
+<code class="descname">Jdyn</code><span class="sig-paren">(</span><em>t</em>, <em>x</em>, <em>u</em>, <em>p=None</em>, <em>h=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.system.Jdyn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamics function with Jacobian return.</p>
+<p>It has to be overriden.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong><strong>, </strong><strong>u</strong><strong>, </strong><strong>p</strong><strong>, </strong><strong>h</strong> (<em>t</em><em>,</em>) – see dyn</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">y: ndarray, either dotx or x_k+1</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">J: ndarray/spmatrix, returning Jacobian of this function evaluation</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptBase.system.dyn">
+<code class="descname">dyn</code><span class="sig-paren">(</span><em>t</em>, <em>x</em>, <em>u</em>, <em>p=None</em>, <em>h=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.system.dyn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamics function without gradient information.</p>
+<p>It has to be overriden.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>t</strong> – float, time when evaluating system dynamics</li>
+<li><strong>x</strong> – np.ndarray, (nx,) state variable</li>
+<li><strong>u</strong> – np.ndarray, (nu,) control variable</li>
+<li><strong>p</strong> – np.ndarray, (np,) additional optimizing variable</li>
+<li><strong>h</strong> – float, used for discretized system. Integration step size</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">either dotx or x_k+1 depends on system type</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="trajOptLib.trajOptBase.system.odes">
+<code class="descname">odes</code><em class="property"> = ['RK4', 'Dis', 'Euler', 'BackEuler']</em><a class="headerlink" href="#trajOptLib.trajOptBase.system.odes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptBase.system.setOde">
+<code class="descname">setOde</code><span class="sig-paren">(</span><em>method</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.system.setOde" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set ode approach.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>method</strong> – str, name of ode approach.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-trajOptLib.trajOptProblem">
+<span id="trajoptlib-trajoptproblem-module"></span><h2>trajOptLib.trajOptProblem module<a class="headerlink" href="#module-trajOptLib.trajOptProblem" title="Permalink to this headline">¶</a></h2>
+<p>trajOptProblem.py</p>
+<p>Class for describing the trajectory optimization problems.</p>
+<dl class="class">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptProblem.</code><code class="descname">trajOptProblem</code><span class="sig-paren">(</span><em>sys</em>, <em>N=20</em>, <em>t0=0.0</em>, <em>tf=1.0</em>, <em>gradmode=True</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.libsnopt.probFun</span></code></p>
+<p>A class for definition of trajectory optimization problem.</p>
+<p>A general framework for using this class is to:</p>
+<ol class="arabic simple">
+<li>Define a class inherited from system and write dyn/Jdyn method.</li>
+<li>Optionally, write desired cost function by inheriting/creating from the list of available cost functions.</li>
+<li>Optinally, write desired constraint functions by inheriting from available constraints.</li>
+<li>Create this class with selected system, discretization, t0, tf range, gradient option</li>
+<li>Set bounds for state, control, parameters, x0 and xf</li>
+<li>Add objective functions and constraints to this class</li>
+<li>Call preProcess method explicitly</li>
+<li>Create snoptConfig instance and choose desired options</li>
+<li>Construct the solver</li>
+<li>Use the solver to solve with either automatic guess or user provided guess</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Exclude-members:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">getSparsity</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.addLQRObj">
+<code class="descname">addLQRObj</code><span class="sig-paren">(</span><em>lqrobj</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addLQRObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a lqr objective function to the problem. It changes lqrObj into a function being called in two modes…</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lqrobj</strong> – a lqrObj class.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.addLinPointObj">
+<code class="descname">addLinPointObj</code><span class="sig-paren">(</span><em>linPointObj</em>, <em>path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addLinPointObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add linear point objective function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>linPointObj</strong> – linearPointObj class</li>
+<li><strong>path</strong> – bool, if this is path obj (at every point except for final one)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.addLinearObj">
+<code class="descname">addLinearObj</code><span class="sig-paren">(</span><em>linObj</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addLinearObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add linear objective function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>linObj</strong> – linearObj class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.addNonLinConstr">
+<code class="descname">addNonLinConstr</code><span class="sig-paren">(</span><em>constr</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addNonLinConstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a general nonlinear constraint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>constr</strong> – nonLinConstr class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.addNonLinObj">
+<code class="descname">addNonLinObj</code><span class="sig-paren">(</span><em>nonlinObj</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addNonLinObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add nonlinear objective function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nonLinObj</strong> – a nonLinObj class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.addNonPointObj">
+<code class="descname">addNonPointObj</code><span class="sig-paren">(</span><em>nonPntObj</em>, <em>path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addNonPointObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add nonlinear point objective.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nonPntObj</strong> – nonLinObj class</li>
+<li><strong>path</strong> – bool, if this obj is pointwise</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.addPointConstr">
+<code class="descname">addPointConstr</code><span class="sig-paren">(</span><em>pntConstr</em>, <em>path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addPointConstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add point constraint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pntConstr</strong> – pointConstr class</li>
+<li><strong>path</strong> – bool, if this obj</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.getDynSparsity">
+<code class="descname">getDynSparsity</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.getDynSparsity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set sparsity of the problem caused by system dynamics and other nonlinear constraints.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> – ndarray, the guess/sol</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.getObjSparsity">
+<code class="descname">getObjSparsity</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.getObjSparsity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set sparsity structure of the problem from objective function.</p>
+<p>For objective function, we do calculation by assigning gradient to a vector of length numSol.
+The sparsity pattern is remembered which is a mask that is then used to assign G.
+This function also determines if it is safe to turn on aggressive mode where we directly assign G.
+We can safely turn it on in the following conditions:
+- only lqrObj is supplied
+- only one of nonLinObj, nonPointObj, nonPathObj, linearObj, linPointObj, linPathObj is non-empty
+In other cases, we still have to remember which maps to which and there is not much improvement compared with current implementation
+# TODO: add support such that user has option to safely insert an objective function. Such as path obj plus terminal cost. In long run, add linear obj support</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> – ndarray, the guess/sol</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">indices: ndarray, the indices with non-zero objective gradient</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.getSparsity">
+<code class="descname">getSparsity</code><span class="sig-paren">(</span><em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.getSparsity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.parseSol">
+<code class="descname">parseSol</code><span class="sig-paren">(</span><em>sol</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.parseSol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call parseX function from utility and return a dict of solution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.preProcess">
+<code class="descname">preProcess</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.preProcess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the instances of probFun now we are ready.</p>
+<p>Call this function after the objectives and constraints have been set appropriately.
+It calculate the space required for SNOPT and allocates sparsity structure if necessary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.setFbound">
+<code class="descname">setFbound</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.setFbound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bound on F</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.setN">
+<code class="descname">setN</code><span class="sig-paren">(</span><em>N</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.setN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set N.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>N</strong> – the size of discretization.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.setXbound">
+<code class="descname">setXbound</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.setXbound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bounds on decision variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.sett0tf">
+<code class="descname">sett0tf</code><span class="sig-paren">(</span><em>t0</em>, <em>tf</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.sett0tf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set t0 and tf.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>t0</strong> – float/ndarray (2,) allowable t0</li>
+<li><strong>tf</strong> – float/ndarray (2,) allowable tf</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-trajOptLib.utility">
+<span id="trajoptlib-utility-module"></span><h2>trajOptLib.utility module<a class="headerlink" href="#module-trajOptLib.utility" title="Permalink to this headline">¶</a></h2>
+<p>utility.py</p>
+<p>Collection of utility functions such as solution parsing and showing.</p>
+<dl class="function">
+<dt id="trajOptLib.utility.parseX">
+<code class="descclassname">trajOptLib.utility.</code><code class="descname">parseX</code><span class="sig-paren">(</span><em>x</em>, <em>N</em>, <em>dimx</em>, <em>dimu</em>, <em>dimp</em>, <em>uset0</em>, <em>usetf</em>, <em>setfinal=True</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.utility.parseX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the solution into a dict of time, state, control, parameter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> – ndarray, solution found by SNOPT</li>
+<li><strong>dimx</strong><strong>, </strong><strong>dimu</strong><strong>, </strong><strong>dimp</strong> (<em>N</em><em>,</em>) – discretization of the problem</li>
+<li><strong>usetf</strong> (<em>uset0</em><em>,</em>) – float/array like, specification of initial and final time</li>
+<li><strong>setfinal</strong> – if we set the final element of u/p the same with second last</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary of keys ‘t’, ‘x’, ‘u’, ‘p’</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.utility.showSol">
+<code class="descclassname">trajOptLib.utility.</code><code class="descname">showSol</code><span class="sig-paren">(</span><em>solDict</em>, <em>xsplit=None</em>, <em>usplit=None</em>, <em>psplit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.utility.showSol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the parsed solution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>solDict</strong> – dict, returned from solParse; or a list of such dict. Then they are compared</li>
+<li><strong>xsplit</strong> – if state space is large, this splits it into several images it’s a list of int like (3, 6). None means no split</li>
+<li><strong>usplit</strong> – similar to xsplit, apply for control</li>
+<li><strong>psplit</strong> – similar to xsplit, apply for parameter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-trajOptLib">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-trajOptLib" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">trajOptLib package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-trajOptLib.snoptWrapper">trajOptLib.snoptWrapper module</a></li>
+<li><a class="reference internal" href="#module-trajOptLib.trajOptBase">trajOptLib.trajOptBase module</a></li>
+<li><a class="reference internal" href="#module-trajOptLib.trajOptProblem">trajOptLib.trajOptProblem module</a></li>
+<li><a class="reference internal" href="#module-trajOptLib.utility">trajOptLib.utility module</a></li>
+<li><a class="reference internal" href="#module-trajOptLib">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/trajOptLib.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Gao Tang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/trajOptLib.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
