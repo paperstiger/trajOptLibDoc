@@ -391,8 +391,17 @@ This function should be inherited and users are supposed to override dyn/Jdyn fu
 <p>trajOptProblem.py</p>
 <p>Class for describing the trajectory optimization problems.</p>
 <dl class="class">
+<dt id="trajOptLib.trajOptProblem.addX">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptProblem.</code><code class="descname">addX</code><span class="sig-paren">(</span><em>n</em>, <em>lb=None</em>, <em>ub=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.addX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A description of additional optimizing parameter.</p>
+<p>It is intended to be used if the optimal control has like point constraint.
+In this class the user has to supply the size and bounds of those variables.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="trajOptLib.trajOptProblem.trajOptProblem">
-<em class="property">class </em><code class="descclassname">trajOptLib.trajOptProblem.</code><code class="descname">trajOptProblem</code><span class="sig-paren">(</span><em>sys</em>, <em>N=20</em>, <em>t0=0.0</em>, <em>tf=1.0</em>, <em>gradmode=True</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptProblem.</code><code class="descname">trajOptProblem</code><span class="sig-paren">(</span><em>sys</em>, <em>N=20</em>, <em>t0=0.0</em>, <em>tf=1.0</em>, <em>gradmode=True</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.libsnopt.probFun</span></code></p>
 <p>A class for definition of trajectory optimization problem.</p>
 <p>A general framework for using this class is to:</p>
@@ -408,15 +417,6 @@ This function should be inherited and users are supposed to override dyn/Jdyn fu
 <li>Construct the solver</li>
 <li>Use the solver to solve with either automatic guess or user provided guess</li>
 </ol>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Exclude-members:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">getSparsity</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="trajOptLib.trajOptProblem.trajOptProblem.addLQRObj">
 <code class="descname">addLQRObj</code><span class="sig-paren">(</span><em>lqrobj</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addLQRObj" title="Permalink to this definition">¶</a></dt>
@@ -571,6 +571,87 @@ In other cases, we still have to remember which maps to which and there is not m
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.ipEvalF">
+<code class="descname">ipEvalF</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.ipEvalF" title="Permalink to this definition">¶</a></dt>
+<dd><p>The eval_f function required by ipopt.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> – a guess/solution of the problem</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return f:</th><td class="field-body">float, objective function</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.ipEvalG">
+<code class="descname">ipEvalG</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.ipEvalG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluation of the constraint function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> – ndarray, guess/solution to the problem.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return g:</th><td class="field-body">constraint function</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.ipEvalGradF">
+<code class="descname">ipEvalGradF</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.ipEvalGradF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluation of the gradient of objective function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> – guess/solution to the problem</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return grad:</th><td class="field-body">gradient of objective function w.r.t x</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.ipEvalJacG">
+<code class="descname">ipEvalJacG</code><span class="sig-paren">(</span><em>x</em>, <em>flag</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.ipEvalJacG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate jacobian of constraints. I simply call __callg__</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – ndarray, guess / solution to the problem</li>
+<li><strong>flag</strong> – bool, True return row/col, False return values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.parseF">
+<code class="descname">parseF</code><span class="sig-paren">(</span><em>guess</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.parseF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give an guess, evaluate it and parse into parts.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>guess</strong> – ndarray, (numSol, ) a guess or a solution to check</td>
+</tr>
+</tbody>
+</table>
+<p>:return : dict, containing objective and parsed constraints</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptProblem.trajOptProblem.parseSol">
 <code class="descname">parseSol</code><span class="sig-paren">(</span><em>sol</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.parseSol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call parseX function from utility and return a dict of solution.</p>
@@ -582,6 +663,23 @@ In other cases, we still have to remember which maps to which and there is not m
 <dd><p>Initialize the instances of probFun now we are ready.</p>
 <p>Call this function after the objectives and constraints have been set appropriately.
 It calculate the space required for SNOPT and allocates sparsity structure if necessary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.randomGenX">
+<code class="descname">randomGenX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.randomGenX" title="Permalink to this definition">¶</a></dt>
+<dd><p>A more reansonable approach to generate random guess for the problem.</p>
+<p>It considers bounds on initial and final states so this is satisfied.
+Then it linearly interpolate between states.
+Controls are randomly generated within control bound, if it presents. Otherwise [-1, 1]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return x:</th><td class="field-body">ndarray, (numSol, ) an initial guess of the solution</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -636,6 +734,16 @@ It calculate the space required for SNOPT and allocates sparsity structure if ne
 <p>utility.py</p>
 <p>Collection of utility functions such as solution parsing and showing.</p>
 <dl class="function">
+<dt id="trajOptLib.utility.checkInBounds">
+<code class="descclassname">trajOptLib.utility.</code><code class="descname">checkInBounds</code><span class="sig-paren">(</span><em>x</em>, <em>bds</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.utility.checkInBounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the position of variables in a bound.</p>
+<p>Basically, it returns the position of actual value in the bounds [-1, 1].
+If both sides are bounded, it simply calculate this value.
+If one side is bounded, it check if value if within certain threshold with the bound
+Unbounded variables shall always return 0, the same applies to equality-bounded variables.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="trajOptLib.utility.parseX">
 <code class="descclassname">trajOptLib.utility.</code><code class="descname">parseX</code><span class="sig-paren">(</span><em>x</em>, <em>N</em>, <em>dimx</em>, <em>dimu</em>, <em>dimp</em>, <em>uset0</em>, <em>usetf</em>, <em>setfinal=True</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.utility.parseX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse the solution into a dict of time, state, control, parameter.</p>
@@ -652,6 +760,27 @@ It calculate the space required for SNOPT and allocates sparsity structure if ne
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary of keys ‘t’, ‘x’, ‘u’, ‘p’</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.utility.randomGenInBound">
+<code class="descclassname">trajOptLib.utility.</code><code class="descname">randomGenInBound</code><span class="sig-paren">(</span><em>bds</em>, <em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.utility.randomGenInBound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly generate a vector within bounds / [-1, 1]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bds</strong> – list/tuple of ndarray, the bounds of variable</li>
+<li><strong>n</strong> – if bds are None, this is for determining size of vector</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return x:</th><td class="field-body"><p class="first last">ndarray, the random generated variable</p>
 </td>
 </tr>
 </tbody>
