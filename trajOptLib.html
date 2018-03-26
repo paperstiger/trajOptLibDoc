@@ -58,6 +58,66 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-trajOptLib.ipoptWrapper">
+<span id="trajoptlib-ipoptwrapper-module"></span><h2>trajOptLib.ipoptWrapper module<a class="headerlink" href="#module-trajOptLib.ipoptWrapper" title="Permalink to this headline">¶</a></h2>
+<p>ipoptWrapper.py</p>
+<p>A wrapper for ipopt solver</p>
+<dl class="class">
+<dt id="trajOptLib.ipoptWrapper.ipOption">
+<em class="property">class </em><code class="descclassname">trajOptLib.ipoptWrapper.</code><code class="descname">ipOption</code><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipOption" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class containing settings for ipopt solver.</p>
+<dl class="method">
+<dt id="trajOptLib.ipoptWrapper.ipOption.addFloatOption">
+<code class="descname">addFloatOption</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipOption.addFloatOption" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.ipoptWrapper.ipOption.addIntOption">
+<code class="descname">addIntOption</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipOption.addIntOption" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.ipoptWrapper.ipOption.addOption">
+<code class="descname">addOption</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipOption.addOption" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.ipoptWrapper.ipOption.addStrOption">
+<code class="descname">addStrOption</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipOption.addStrOption" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.ipoptWrapper.ipSolver">
+<em class="property">class </em><code class="descclassname">trajOptLib.ipoptWrapper.</code><code class="descname">ipSolver</code><span class="sig-paren">(</span><em>prob</em>, <em>option=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A solver class for ipopt. It accepts my conventional problem type.</p>
+<dl class="method">
+<dt id="trajOptLib.ipoptWrapper.ipSolver.solveGuess">
+<code class="descname">solveGuess</code><span class="sig-paren">(</span><em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipSolver.solveGuess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve the problem with some user-supplied guess.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x0</strong> – ndarray, solution/guess to the problem.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.ipoptWrapper.ipSolver.solveRand">
+<code class="descname">solveRand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipSolver.solveRand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use problem to generate a random guess and solve it from there.</p>
+<p>It generates a random initial guess (which might be far off for unknown problem) and use it to solve.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-trajOptLib.snoptWrapper">
 <span id="trajoptlib-snoptwrapper-module"></span><h2>trajOptLib.snoptWrapper module<a class="headerlink" href="#module-trajOptLib.snoptWrapper" title="Permalink to this headline">¶</a></h2>
 <p>snoptWrapper.py</p>
@@ -646,9 +706,10 @@ In other cases, we still have to remember which maps to which and there is not m
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>guess</strong> – ndarray, (numSol, ) a guess or a solution to check</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict, containing objective and parsed constraints</td>
+</tr>
 </tbody>
 </table>
-<p>:return : dict, containing objective and parsed constraints</p>
 </dd></dl>
 
 <dl class="method">
@@ -824,6 +885,7 @@ Unbounded variables shall always return 0, the same applies to equality-bounded 
 <li><a class="reference internal" href="#">trajOptLib package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-trajOptLib.ipoptWrapper">trajOptLib.ipoptWrapper module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.snoptWrapper">trajOptLib.snoptWrapper module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptBase">trajOptLib.trajOptBase module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptProblem">trajOptLib.trajOptProblem module</a></li>
