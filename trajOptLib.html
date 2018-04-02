@@ -304,6 +304,20 @@
 <p>A description of additional optimizing parameter.</p>
 <p>It is intended to be used if the optimal control has like point constraint.
 In this class the user has to supply the size and bounds of those variables.</p>
+<p>Constructor of this class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n</strong> – int, length of this variable.</li>
+<li><strong>lb</strong> – ndarray, (n,) lower bounds for those variables. None means no bound</li>
+<li><strong>ub</strong> – ndarray, (n,) uppere bounds for those variables. None means no bound</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -313,6 +327,21 @@ In this class the user has to supply the size and bounds of those variables.</p>
 <p>Base class for functions, including both objective and constraint.</p>
 <p>This function should be inherited to define your own functions.
 A function with user supplied gradient information, nx, nf, ng should be set.</p>
+<p>Constructor for base function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nx</strong> – int, number of variables input</li>
+<li><strong>nf</strong> – int, number of response output</li>
+<li><strong>gradmode</strong> – string, mode of gradient</li>
+<li><strong>ng</strong> – int, used only when gradmode == ‘user’, means number of nnz gradients</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="trajOptLib.trajOptBase.baseFun.findTimeGradient">
 <code class="descname">findTimeGradient</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.baseFun.findTimeGradient" title="Permalink to this definition">¶</a></dt>
@@ -330,6 +359,28 @@ A function with user supplied gradient information, nx, nf, ng should be set.</p
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">daeSystem</code><span class="sig-paren">(</span><em>nx</em>, <em>nu</em>, <em>np</em>, <em>nf</em>, <em>nG</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.daeSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A DAE system.</p>
+<p>Constructor for the problem.</p>
+<p>For a dae system described by :math <cite>f(t, q, dot{q}, ddot{q}, u, p)=0</cite>, nx=3dim(q), nf=dim(q).
+If it is described by :math <cite>f(t, q, dot{q}, u, p)=0</cite>, nx=2dim(q), nf=dim(q).
+We define as order the highest time derivative of state q. Keeping this in mind, nf always equals dim(q),
+nx = (1+order)dim(q), nDefect = 2*order*nf
+Compared with system class, system dynamics can be given implicitly.
+For different order, we are gonna have different number of defect constraints and sizes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nx</strong> – int, dimension of states, it might also include acceleration</li>
+<li><strong>nu</strong> – int, dimension of control</li>
+<li><strong>np</strong> – int, dimension of parameter</li>
+<li><strong>nf</strong> – int, dimension of dae system</li>
+<li><strong>nG</strong> – int, nnz of Jacobian</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="trajOptLib.trajOptBase.daeSystem.dyn">
 <code class="descname">dyn</code><span class="sig-paren">(</span><em>t</em>, <em>x</em>, <em>u</em>, <em>p</em>, <em>y</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.daeSystem.dyn" title="Permalink to this definition">¶</a></dt>
@@ -366,6 +417,15 @@ A function with user supplied gradient information, nx, nf, ng should be set.</p
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for directly add linear objective function over the entire decision variable.</p>
 <p>It serves for objective of form <img class="math" src="_images/math/fd03693084d2bab5892d4875109dd89e0265c8fe.png" alt="y=Ax"/> where <img class="math" src="_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is the collected long vector.</p>
+<p>Constructor for linear objective function using A</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>A</strong> – np.ndarray or spmatrix, must of size equal to nsol</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -382,6 +442,22 @@ A function with user supplied gradient information, nx, nf, ng should be set.</p
 <p>Class for directly add linear objective function over the entire decision variable.</p>
 <p>It serves for objective function of the form <img class="math" src="_images/math/fd03693084d2bab5892d4875109dd89e0265c8fe.png" alt="y=Ax"/> where <img class="math" src="_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is the concatenated vector of state, 
 control and parameter at a selected index.</p>
+<p>Constructor for linear objective function using A pointwise</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – int, at which point is objective function evaluated</li>
+<li><strong>A</strong> – np.ndarray or spmatrix, must of size equal to xdim</li>
+<li><strong>nx</strong> – int, dimension of state</li>
+<li><strong>nu</strong> – int, dimension of control</li>
+<li><strong>np</strong> – int, dimension of parameter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -389,6 +465,22 @@ control and parameter at a selected index.</p>
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">lqrObj</code><span class="sig-paren">(</span><em>F=None</em>, <em>Q=None</em>, <em>R=None</em>, <em>xfbase=None</em>, <em>xbase=None</em>, <em>ubase=None</em>, <em>tfweight=None</em>, <em>P=None</em>, <em>pbase=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.lqrObj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for LQR objective since it is so common. It is treated independently with pathObj.</p>
+<p>Constructor for LQR objective function.</p>
+<p><img class="math" src="_images/math/68bdadf7e52408a4343513b8b851bfa02c545c46.png" alt="c=\|x_f-x_{fbase}\|_F + \Sigma (\|x-x_{base}\|_Q + \|u-u_{base}\|_R + \|p-p_{base}\|_P) * h"/></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>Q</strong><strong>, </strong><strong>R</strong> (<em>F</em><em>,</em>) – cost for terminal, path state, path ctrl.</li>
+<li><strong>xbase</strong><strong>, </strong><strong>ubase</strong> (<em>xfbase</em><em>,</em>) – the basis.</li>
+<li><strong>P</strong> – might be None if we do not penalize p</li>
+<li><strong>pbase</strong> – might be None if we do not penalize p</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -403,6 +495,22 @@ control and parameter at a selected index.</p>
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">nonLinearConstr</code><span class="sig-paren">(</span><em>nsol</em>, <em>nc</em>, <em>lb=None</em>, <em>ub=None</em>, <em>gradmode='user'</em>, <em>nG=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.nonLinearConstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
 <p>Class for defining constraint function in a general form.</p>
+<p>Constructor for general nonlinear constraint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nsol</strong> – int, length of the solution vector, used to initialize baseFun</li>
+<li><strong>nc</strong> – int, dimension of constraint function</li>
+<li><strong>ub</strong> (<em>lb</em><em>,</em>) – lower and upper bound of the constraint function. None means equal to 0</li>
+<li><strong>gradmode</strong> – str, how gradient is provided</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:param nG, int, number of nnz of Jacobian</p>
 </dd></dl>
 
 <dl class="class">
@@ -411,6 +519,20 @@ control and parameter at a selected index.</p>
 <dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
 <p>Class for general nonlinear objective function over the entire decision variables.</p>
 <p>The objective function is basically calculated by calling a nonlinear function.</p>
+<p>Constructor for nonlinear objective function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nsol</strong> – int, length of decision variable</li>
+<li><strong>gradmode</strong> – str, how gradient is provided</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:param nG, int, number of nnz of Jacobian</p>
 </dd></dl>
 
 <dl class="class">
@@ -418,6 +540,23 @@ control and parameter at a selected index.</p>
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">nonLinearPointConstr</code><span class="sig-paren">(</span><em>index</em>, <em>nc</em>, <em>nx</em>, <em>nu</em>, <em>np=0</em>, <em>lb=None</em>, <em>ub=None</em>, <em>gradmode='user'</em>, <em>nG=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.nonLinearPointConstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
 <p>Class for defining point constraint function.</p>
+<p>Constructor for nonlinear point constraint. Also serve as path constraint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – int, at which point is objective calculated</li>
+<li><strong>nc</strong> – int, dimension of constraint function</li>
+<li><strong>nu</strong><strong>, </strong><strong>np</strong> (<em>nx</em><em>,</em>) – int, dimensions</li>
+<li><strong>ub</strong> (<em>lb</em><em>,</em>) – lower and upper bound of the constraint function. None means equal to 0</li>
+<li><strong>gradmode</strong> – str, how gradient is provided</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:param nG, int, number of nnz of Jacobian</p>
 </dd></dl>
 
 <dl class="class">
@@ -426,6 +565,21 @@ control and parameter at a selected index.</p>
 <dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.baseFun" title="trajOptLib.trajOptBase.baseFun"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.baseFun</span></code></a></p>
 <p>Class for defining point objective function.</p>
 <p>Similar to linear case. A function that takes the concatenated vector at a selected index is used.</p>
+<p>Constructor for nonlinear objective function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – int, at which point is objective calculated</li>
+<li><strong>nu</strong><strong>, </strong><strong>np</strong> (<em>nx</em><em>,</em>) – int, dimensions</li>
+<li><strong>gradmode</strong> – str, how gradient is provided</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:param nG, int, number of nnz of Jacobian</p>
 </dd></dl>
 
 <dl class="class">
@@ -436,6 +590,21 @@ control and parameter at a selected index.</p>
 <p>To define a dynamical system, we need to specify dimension of state, control, and parameter.
 Optionally, integration approach can be selected.
 This function should be inherited and users are supposed to override dyn/Jdyn functions.</p>
+<p>Constructor for class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>nx</strong> – int, dimension of state variable</li>
+<li><strong>nu</strong> – int, dimension of control variable</li>
+<li><strong>np</strong> – int, dimension of additional parameter</li>
+<li><strong>ode</strong> – str, integration approach. Default RK4, options: Dis, Euler, BackEuler</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="trajOptLib.trajOptBase.system.Jdyn">
 <code class="descname">Jdyn</code><span class="sig-paren">(</span><em>t</em>, <em>x</em>, <em>u</em>, <em>p=None</em>, <em>h=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.system.Jdyn" title="Permalink to this definition">¶</a></dt>
@@ -527,6 +696,25 @@ This can be built incrementally by adding pieces. Our approach can correctly det
 10. Use the solver to solve with either automatic guess or user provided guess</p>
 <p>The system dynamics constraints are imposed using direct collocation approach with some additional optimization
 variables as suggested by others.</p>
+<p>Initialize problem by system, discretization grid size, and allowable time</p>
+<p>Change history: now I remove gradmode option since I require the gradient be provided analytically all the time.
+I remove unnecessary linear objective functions.
+I reorder variable so q, dq, ddq, u, p are at consecutive place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sys</strong> – system, describe system dynamics</li>
+<li><strong>N</strong> – int, discretization grid size, a uniform grid</li>
+<li><strong>t0</strong> – float/array like, allowable t0</li>
+<li><strong>tf</strong> – float/array like, allowable tf</li>
+<li><strong>addX</strong> – list of addX / one addX / None, additional optimization variables.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addConstr">
 <code class="descname">addConstr</code><span class="sig-paren">(</span><em>constr</em>, <em>path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addConstr" title="Permalink to this definition">¶</a></dt>
@@ -953,6 +1141,25 @@ I will also change code style to suppress those warnings.</p>
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptMultiPhaseCollocationProblem.</code><code class="descname">LinearConnectConstr</code><span class="sig-paren">(</span><em>phase1</em>, <em>phase2</em>, <em>a1</em>, <em>a2</em>, <em>lb=None</em>, <em>ub=None</em>, <em>index1=-1</em>, <em>index2=0</em>, <em>adda=None</em>, <em>addx_index=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.LinearConnectConstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for defining linear constraint functions.</p>
+<p>Constructor for nonlinear point constraint. Also serve as path constraint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>phase1/phase2</strong> – int, phase number that constraint is imposed. We read data from them</li>
+<li><strong>a1/a2</strong> – ndarray, the constraint, :math: <cite>l le A_1 x_1 + A_2 x_2 le u</cite></li>
+<li><strong>ub</strong> (<em>lb</em><em>,</em>) – lower and upper bound of the constraint function. None means equal to 0</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:param nG, int, number of nnz of Jacobian
+:param index1/index2: int, by default we connect last point of phase 1 with first point of phase 2.
+However, we allow manual assignment of them.
+:param adda: ndarray, if additional parameter comes into play, we use this
+:param addx_index: int, index of the additional parameters</p>
 <dl class="method">
 <dt id="trajOptLib.trajOptMultiPhaseCollocationProblem.LinearConnectConstr.find_time_gradient">
 <code class="descname">find_time_gradient</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.LinearConnectConstr.find_time_gradient" title="Permalink to this definition">¶</a></dt>
@@ -966,6 +1173,24 @@ I will also change code style to suppress those warnings.</p>
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptMultiPhaseCollocationProblem.</code><code class="descname">NonLinearConnectConstr</code><span class="sig-paren">(</span><em>phase1</em>, <em>phase2</em>, <em>nc</em>, <em>lb=None</em>, <em>ub=None</em>, <em>nG=None</em>, <em>index1=-1</em>, <em>index2=0</em>, <em>addx_index=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.NonLinearConnectConstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for defining point constraint function.</p>
+<p>Constructor for nonlinear point constraint. Also serve as path constraint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>phase1/phase2</strong> – int, phase number that constraint is imposed. We read data from them</li>
+<li><strong>nc</strong> – int, dimension of constraint function</li>
+<li><strong>ub</strong> (<em>lb</em><em>,</em>) – lower and upper bound of the constraint function. None means equal to 0</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:param nG, int, number of nnz of Jacobian
+:param index1/index2: int, by default we connect last point of phase 1 with first point of phase 2.
+However, we allow manual assignment of them.
+:param addx_index: int, which additional x we use to connect those two phases</p>
 <dl class="method">
 <dt id="trajOptLib.trajOptMultiPhaseCollocationProblem.NonLinearConnectConstr.find_time_gradient">
 <code class="descname">find_time_gradient</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.NonLinearConnectConstr.find_time_gradient" title="Permalink to this definition">¶</a></dt>
@@ -981,6 +1206,19 @@ I will also change code style to suppress those warnings.</p>
 <p>A class for definition of trajectory optimization problem using collocation constraints with support for phase transition.</p>
 <p>The support of multiple phase is implemented by calling functions defined in trajOptCollocProblem since I do not want to reinvent the wheels.
 I can conveniently add support for other constraints that connects two phases.</p>
+<p>Initialize a multi-phase problem by a list of trajOptColloProblem objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>probs</strong> – a list of trajOptCollocProblem</li>
+<li><strong>addx</strong> – a list of addX</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="trajOptLib.trajOptMultiPhaseCollocationProblem.TrajOptMultiPhaseCollocProblem.add_addx_constr">
 <code class="descname">add_addx_constr</code><span class="sig-paren">(</span><em>constr</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.TrajOptMultiPhaseCollocProblem.add_addx_constr" title="Permalink to this definition">¶</a></dt>
@@ -1176,6 +1414,23 @@ It calculate the space required for SNOPT and allocates sparsity structure if ne
 <li>Construct the solver</li>
 <li>Use the solver to solve with either automatic guess or user provided guess</li>
 </ol>
+<p>Initialize problem by system, discretization grid size, and allowable time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sys</strong> – system, describe system dynamics</li>
+<li><strong>N</strong> – int, discretization grid size, a uniform grid</li>
+<li><strong>t0</strong> – float/array like, allowable t0</li>
+<li><strong>tf</strong> – float/array like, allowable tf</li>
+<li><strong>gradmode</strong> – bool, sets if we use gradient mode.</li>
+<li><strong>addX</strong> – list of addX / one addX / None, additional optimization variables.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="trajOptLib.trajOptProblem.trajOptProblem.addConstr">
 <code class="descname">addConstr</code><span class="sig-paren">(</span><em>constr</em>, <em>path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.addConstr" title="Permalink to this definition">¶</a></dt>
