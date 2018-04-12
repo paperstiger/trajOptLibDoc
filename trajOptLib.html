@@ -518,13 +518,10 @@ This function should be inherited and users are supposed to override dyn/Jdyn fu
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.libsnopt.probFun</span></code></p>
 <p>A class for definition of trajectory optimization problem using collocation constraints.</p>
 <p>A general framework for using this class is to:</p>
-<p>1. Define a class which implements a DAE system, f(t, x, p, u)=0.
-This is a typical case for humanoid problem, but also flexible enough for simpler first order system.</p>
-<p>2. Optionally, write desired cost function by inheriting/creating from the list of available cost functions.
-This can be built incrementally by adding pieces.</p>
-<p>3. Optionally, write desired constraint functions by inheriting from available constraints.
-This can be built incrementally by adding pieces. Our approach can correctly detect the Jacobian structure.</p>
-<ol class="arabic simple" start="4">
+<ol class="arabic simple">
+<li>Define a class which implements a DAE system, f(t, x, p, u)=0. This is a typical case for humanoid problem, but also flexible enough for simpler first order system.</li>
+<li>Optionally, write desired cost function by subclass/creating from the list of available cost functions. This can be built incrementally by adding pieces.</li>
+<li>Optionally, write desired constraint functions by subclass from available constraints. This can be built incrementally by adding pieces. Our approach can correctly detect the Jacobian structure.</li>
 <li>Create this class with selected system, discretization, t0, tf range</li>
 <li>Set bounds for state, control, parameters, x0 and xf</li>
 <li>Add objective functions and constraints to this class</li>
