@@ -983,6 +983,46 @@ I reorder variable so q, dq, ddq, u, p are at consecutive place.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromSol">
+<code class="descname">genGuessFromSol</code><span class="sig-paren">(</span><em>parsed_sol</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromSol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate an initial guess from a previous solution. Mainly change grid size or add perturbation. But determining structure is difficult</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parsed_sol</strong> – dictionary, output of calling parseSol</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromTraj">
+<code class="descname">genGuessFromTraj</code><span class="sig-paren">(</span><em>X=None</em>, <em>U=None</em>, <em>P=None</em>, <em>t0=None</em>, <em>tf=None</em>, <em>addx=None</em>, <em>tstamp=None</em>, <em>interp_kind='linear'</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromTraj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate an initial guess for the problem with user specified information.</p>
+<p>An amazing feature is the user does not have to give a solution of exactly the same time-stamped trajectory used internally.
+Interpolation approaches are used in such scenarios.
+The user is not required to provide them all, although we suggest they do so.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>X</strong> – ndarray, (x, x) each row corresponds to a state snapshot (if tstamp is None, assume equidistant grid). Column size can be dimx or dimx/sys.order</li>
+<li><strong>U</strong> – ndarray, (x, dimu) each row corresponds to a control snapshot. Similar to X but with column size equals dimu</li>
+<li><strong>P</strong> – ndarray, (x, dimp) each row corresponds to a parameter snapshot. Similar to X but with column size equals dimp</li>
+<li><strong>t0/tf</strong> – float/array-like, initial/final time. If None, we randomly generate one</li>
+<li><strong>addx</strong> – list of ndarray, guess of addx, if applicable</li>
+<li><strong>tstamp</strong> – ndarray, (x,), None if the X/U/P are provided using equidistant grid.</li>
+<li><strong>interp_kind</strong> – str, interpolation type for scipy.interpolate.interp1d, can be (‘linear’, ‘nearest’, ‘zero’, ‘slinear’, ‘quadratic’, ‘cubic’)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.ipEvalF">
 <code class="descname">ipEvalF</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.ipEvalF" title="Permalink to this definition">¶</a></dt>
 <dd><p>The eval_f function required by ipopt.</p>
@@ -1918,6 +1958,28 @@ Controls are randomly generated within control bound, if it presents. Otherwise 
 If both sides are bounded, it simply calculate this value.
 If one side is bounded, it check if value if within certain threshold with the bound
 Unbounded variables shall always return 0, the same applies to equality-bounded variables.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="trajOptLib.utility.interp">
+<code class="descclassname">trajOptLib.utility.</code><code class="descname">interp</code><span class="sig-paren">(</span><em>t</em>, <em>X</em>, <em>teval</em>, <em>Xeval</em>, <em>kind</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.utility.interp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do interpolation on previous calculated solution.</p>
+<p>It handles case when t is None, in which case, teval is not used and we use a uniform grid in [0, 1]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>t</strong> – array-like, user-specified time stamps</li>
+<li><strong>X</strong> – ndarray, (x, x), variable to be interpolated</li>
+<li><strong>teval</strong> – array-like, where to evaluate for the interpolation</li>
+<li><strong>Xeval</strong> – ndarray, (x, x), where to store the evaluation. It might has more columns than X, in which case we fill higher-order derivative</li>
+<li><strong>kind</strong> – str, interpolation type for scipy.interpolate.interp1d, can be (‘linear’, ‘nearest’, ‘zero’, ‘slinear’, ‘quadratic’, ‘cubic’)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
