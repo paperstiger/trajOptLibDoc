@@ -54,6 +54,7 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -93,6 +94,8 @@
 </li>
         <li><a href="trajOptLib.html#trajOptLib.trajOptBase.nonLinearPointObj.__init__">(trajOptLib.trajOptBase.nonLinearPointObj method)</a>
 </li>
+        <li><a href="trajOptLib.html#trajOptLib.trajOptBase.quadPenalty.__init__">(trajOptLib.trajOptBase.quadPenalty method)</a>
+</li>
         <li><a href="trajOptLib.html#trajOptLib.trajOptBase.system.__init__">(trajOptLib.trajOptBase.system method)</a>
 </li>
         <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.__init__">(trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
@@ -130,12 +133,16 @@
 </li>
       <li><a href="trajOptLib.html#trajOptLib.trajOptMultiPhaseCollocationProblem.TrajOptMultiPhaseCollocProblem.add_obj">add_obj() (trajOptLib.trajOptMultiPhaseCollocationProblem.TrajOptMultiPhaseCollocProblem method)</a>
 </li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addAddXQuadPenalty">addAddXQuadPenalty() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
+</li>
       <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addConstr">addConstr() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
 
       <ul>
         <li><a href="trajOptLib.html#trajOptLib.trajOptProblem.trajOptProblem.addConstr">(trajOptLib.trajOptProblem.trajOptProblem method)</a>
 </li>
       </ul></li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addControlQuadPenalty">addControlQuadPenalty() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
+</li>
       <li><a href="trajOptLib.html#trajOptLib.ipoptWrapper.ipOption.addFloatOption">addFloatOption() (trajOptLib.ipoptWrapper.ipOption method)</a>
 </li>
       <li><a href="trajOptLib.html#trajOptLib.ipoptWrapper.ipOption.addIntOption">addIntOption() (trajOptLib.ipoptWrapper.ipOption method)</a>
@@ -204,9 +211,15 @@
       </ul></li>
       <li><a href="trajOptLib.html#trajOptLib.ipoptWrapper.ipOption.addOption">addOption() (trajOptLib.ipoptWrapper.ipOption method)</a>
 </li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addParamQuadPenalty">addParamQuadPenalty() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
+</li>
       <li><a href="trajOptLib.plot.html#trajOptLib.plot.plot3d.addSphere">addSphere() (in module trajOptLib.plot.plot3d)</a>
 </li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addStateQuadPenalty">addStateQuadPenalty() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
+</li>
       <li><a href="trajOptLib.html#trajOptLib.ipoptWrapper.ipOption.addStrOption">addStrOption() (trajOptLib.ipoptWrapper.ipOption method)</a>
+</li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addVanillaQuadPenalty">addVanillaQuadPenalty() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
 </li>
       <li><a href="trajOptLib.html#trajOptLib.trajOptBase.addX">addX (class in trajOptLib.trajOptBase)</a>
 </li>
@@ -296,7 +309,11 @@
 </li>
       <li><a href="trajOptLib.plot.html#trajOptLib.plot.common.get3dAxis">get3dAxis() (in module trajOptLib.plot.common)</a>
 </li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getAddXIndexByIndex">getAddXIndexByIndex() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
+</li>
       <li><a href="trajOptLib.plot.html#trajOptLib.plot.common.getColorCycle">getColorCycle() (in module trajOptLib.plot.common)</a>
+</li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getContrlIndexByIndex">getContrlIndexByIndex() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
 </li>
       <li><a href="trajOptLib.plot.html#trajOptLib.plot.common.getIndAlongAxis">getIndAlongAxis() (in module trajOptLib.plot.common)</a>
 </li>
@@ -312,7 +329,11 @@
 </li>
       <li><a href="trajOptLib.io.html#trajOptLib.io.printio.Mute.getOutput">getOutput() (trajOptLib.io.printio.Mute method)</a>
 </li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getParamIndexByIndex">getParamIndexByIndex() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
+</li>
       <li><a href="trajOptLib.plot.html#trajOptLib.plot.getSizeFont">getSizeFont() (in module trajOptLib.plot)</a>
+</li>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getStateIndexByIndex">getStateIndexByIndex() (trajOptLib.trajOptCollocationProblem.trajOptCollocProblem method)</a>
 </li>
       <li><a href="trajOptLib.html#trajOptLib.trajOptBase.baseFun.grad">grad (trajOptLib.trajOptBase.baseFun attribute)</a>
 </li>
@@ -472,6 +493,14 @@
         <li><a href="trajOptLib.html#trajOptLib.trajOptProblem.trajOptProblem.preProcess">(trajOptLib.trajOptProblem.trajOptProblem method)</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="trajOptLib.html#trajOptLib.trajOptBase.quadPenalty">quadPenalty (class in trajOptLib.trajOptBase)</a>
+</li>
   </ul></td>
 </tr></table>
 

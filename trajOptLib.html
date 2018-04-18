@@ -663,6 +663,34 @@ control and parameter at a selected index.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="trajOptLib.trajOptBase.quadPenalty">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">quadPenalty</code><span class="sig-paren">(</span><em>indices</em>, <em>weights</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.quadPenalty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.nonLinearObj" title="trajOptLib.trajOptBase.nonLinearObj"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.nonLinearObj</span></code></a></p>
+<p>In many scenarios, we want to minimize the quadratic of some variables for some variables.</p>
+<p>This is generally different from LQR objective by that it is a point constraint and thus not integral one.
+To make it versatile, the user is allowed to pass indices so we can directly evaluate those variables.
+User friendly classes are also created so the indices are calculated internally.</p>
+<dl class="method">
+<dt id="trajOptLib.trajOptBase.quadPenalty.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>indices</em>, <em>weights</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.quadPenalty.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for the class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>indices</strong> – ndarray, indices of variables we aim to penalize.</li>
+<li><strong>weights</strong> – float/ndarray, weights for terms</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="trajOptLib.trajOptBase.system">
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">system</code><span class="sig-paren">(</span><em>nx</em>, <em>nu</em>, <em>np=0</em>, <em>ode='RK4'</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.system" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -805,6 +833,26 @@ I reorder variable so q, dq, ddq, u, p are at consecutive place.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addAddXQuadPenalty">
+<code class="descname">addAddXQuadPenalty</code><span class="sig-paren">(</span><em>index</em>, <em>weights</em>, <em>mask=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addAddXQuadPenalty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add quadratic penalty to addx variables.</p>
+<p>The API is slightly different from previous three since we cannot guarantee weights are of the same lenght.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – int, indices of parameter variables to be penalized.</li>
+<li><strong>weights</strong> – float/array-like, weights of penalty</li>
+<li><strong>mask</strong> – filter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addConstr">
 <code class="descname">addConstr</code><span class="sig-paren">(</span><em>constr</em>, <em>path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addConstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a constraint to the problem.</p>
@@ -815,6 +863,25 @@ I reorder variable so q, dq, ddq, u, p are at consecutive place.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>constr</strong> – a constraint object.</li>
 <li><strong>path</strong> – bool, if this constraint is a path constraint. Only applies for point constraint.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addControlQuadPenalty">
+<code class="descname">addControlQuadPenalty</code><span class="sig-paren">(</span><em>index</em>, <em>weights</em>, <em>mask=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addControlQuadPenalty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a quadratic penalty on selected control variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – int/array-like, indices of control variables to be penalized.</li>
+<li><strong>weights</strong> – float/array-like, weights of penalty</li>
+<li><strong>mask</strong> – filter to select subset</li>
 </ul>
 </td>
 </tr>
@@ -983,6 +1050,64 @@ I reorder variable so q, dq, ddq, u, p are at consecutive place.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addParamQuadPenalty">
+<code class="descname">addParamQuadPenalty</code><span class="sig-paren">(</span><em>index</em>, <em>weights</em>, <em>mask=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addParamQuadPenalty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a quadratic penalty on selected parameter variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – int/array-like, indices of parameter variables to be penalized.</li>
+<li><strong>weights</strong> – float/array-like, weights of penalty</li>
+<li><strong>mask</strong> – filter of variables</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addStateQuadPenalty">
+<code class="descname">addStateQuadPenalty</code><span class="sig-paren">(</span><em>index</em>, <em>weights</em>, <em>mask=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addStateQuadPenalty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a quadratic penalty on selected state variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – int/array-like, indices of state variables to be penalized.</li>
+<li><strong>weights</strong> – float/array-like, weights of penalty</li>
+<li><strong>mask</strong> – mask-like, filter for selecting subset of variables</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addVanillaQuadPenalty">
+<code class="descname">addVanillaQuadPenalty</code><span class="sig-paren">(</span><em>indices</em>, <em>weights</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addVanillaQuadPenalty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a quadratic penalty term based on indices in the solution vector and weights.</p>
+<p>This is dangerous and might cause unexpected trouble unless you are sure indices are correct.
+You can always use addStateQuadPenalty/addControlQuadPenalty/addParamQuadPenalty/addAddXQuadPenalty to finish these.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>indices</strong> – indices of variables to be penalized</li>
+<li><strong>weights</strong> – float/ndarray weights associated with those variables.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromSol">
 <code class="descname">genGuessFromSol</code><span class="sig-paren">(</span><em>parsed_sol</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromSol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate an initial guess from a previous solution. Mainly change grid size or add perturbation. But determining structure is difficult</p>
@@ -1017,6 +1142,62 @@ The user is not required to provide them all, although we suggest they do so.</p
 <li><strong>interp_kind</strong> – str, interpolation type for scipy.interpolate.interp1d, can be (‘linear’, ‘nearest’, ‘zero’, ‘slinear’, ‘quadratic’, ‘cubic’)</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getAddXIndexByIndex">
+<code class="descname">getAddXIndexByIndex</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getAddXIndexByIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>With i as index of addx, it returns the starting index in solution vector for this one.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> – int, the index of addX we want to query.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getContrlIndexByIndex">
+<code class="descname">getContrlIndexByIndex</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getContrlIndexByIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>With i as index for control variable, return the starting index in solution vector.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> – int, the index of control we want to query</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getParamIndexByIndex">
+<code class="descname">getParamIndexByIndex</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getParamIndexByIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>With i as index for parameter variable, return the starting index in solution vector.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> – int, the index of parameter we want to query</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getStateIndexByIndex">
+<code class="descname">getStateIndexByIndex</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.getStateIndexByIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>With i as index for state variable, return the starting index in solution vector.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> – int, the index of State we want to query</td>
 </tr>
 </tbody>
 </table>
