@@ -1271,15 +1271,20 @@ The user is not required to provide them all, although we suggest they do so.</p
 
 <dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.parseF">
-<code class="descname">parseF</code><span class="sig-paren">(</span><em>guess</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.parseF" title="Permalink to this definition">¶</a></dt>
+<code class="descname">parseF</code><span class="sig-paren">(</span><em>guess</em>, <em>y=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.parseF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Give an guess, evaluate it and parse into parts.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>guess</strong> – ndarray, (numSol, ) a guess or a solution to check</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>guess</strong> – ndarray, (numSol, ) a guess or a solution to check</li>
+<li><strong>y</strong> – ndarray, (numF, ) if None, it stores the solution</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict, containing objective and parsed constraints</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict, containing objective and parsed constraints</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1293,7 +1298,7 @@ The user is not required to provide them all, although we suggest they do so.</p
 
 <dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.preProcess">
-<code class="descname">preProcess</code><span class="sig-paren">(</span><em>colloc_constr_is_on=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.preProcess" title="Permalink to this definition">¶</a></dt>
+<code class="descname">preProcess</code><span class="sig-paren">(</span><em>colloc_constr_is_on=False</em>, <em>defect_u=True</em>, <em>defect_p=True</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.preProcess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the instances of probFun now we are ready.</p>
 <p>Call this function after the objectives and constraints have been set appropriately.
 It calculate the space required for SNOPT and allocates sparsity structure if necessary.</p>
@@ -1301,7 +1306,12 @@ It calculate the space required for SNOPT and allocates sparsity structure if ne
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>colloc_constr_is_on</strong> – bool, if we also impose constraints on those collocation points.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>colloc_constr_is_on</strong> – bool, if we also impose constraints on those collocation points.</li>
+<li><strong>defect_u</strong> – bool, if we want to impose defect constraint on u, i.e. umid=(u0+uf)/2</li>
+<li><strong>defect_p</strong> – bool, if we want to impose defect constraint on p, i.e. pmid=(p0+pf)/2</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1445,6 +1455,101 @@ Controls are randomly generated within control bound, if it presents. Otherwise 
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-trajOptLib.trajOptManifoldCollocationProblem">
+<span id="trajoptlib-trajoptmanifoldcollocationproblem-module"></span><h2>trajOptLib.trajOptManifoldCollocationProblem module<a class="headerlink" href="#module-trajOptLib.trajOptManifoldCollocationProblem" title="Permalink to this headline">¶</a></h2>
+<p>trajOptManifoldCollocationProblem.py</p>
+<p>Direct collocation approach with manifold constraint.
+We introduce additional variables to solve this issue.
+Here the order of a system is really helpful.
+For a constraint phi(q)=0, by order we know up to which we should differentiate the constraints.</p>
+<dl class="class">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.manifoldConstr">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptManifoldCollocationProblem.</code><code class="descname">manifoldConstr</code><span class="sig-paren">(</span><em>nx</em>, <em>nc</em>, <em>order=2</em>, <em>nG=0</em>, <em>nnzJx=0</em>, <em>nnzJg=0</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.manifoldConstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An object which defines state manifold constraints. We might need other ugly hacks.</p>
+<p>Update 1, remove support for constr_order, only allow holonomic constraint, i.e. q
+However, user is allowed to control to any level, position / velocity / acceleration level.
+For different daeOrder, the implementation is slightly different</p>
+<dl class="method">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.manifoldConstr.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>nx</em>, <em>nc</em>, <em>order=2</em>, <em>nG=0</em>, <em>nnzJx=0</em>, <em>nnzJg=0</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.manifoldConstr.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for the class.</p>
+<p>nx : the system state dimension, for daeSystem it is order * nf
+nc : the manifold constraint dimension, it is not multiplied by order yet
+order : the order of the daeSystem
+constr_order : which order of states (number of time derivative) does the constraint first appear
+nG : non-zero of the output Jacobian
+nnzJx : int, nnz for Jacobian of (J^T gamma) w.r.t. x
+nnzJg : int, nnz for Jacobian of (J^T gamma) w.r.t. gamma</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem">
+<em class="property">class </em><code class="descclassname">trajOptLib.trajOptManifoldCollocationProblem.</code><code class="descname">trajOptManifoldCollocProblem</code><span class="sig-paren">(</span><em>sys</em>, <em>N</em>, <em>t0</em>, <em>tf</em>, <em>man_constr</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem" title="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptCollocationProblem.trajOptCollocProblem</span></code></a></p>
+<p>A class for solving state equality constrained problem.</p>
+<p>The difference between this class with trajOptCollocProblem is</p>
+<ol class="arabic simple">
+<li>This class directly handles state constrained problem</li>
+<li>This class introduce additional variables at collocation points and change deflect constraints</li>
+<li>Additional parameters are linearly interpolated previously, now we let it unconstrained. This is in fact the same with adding</li>
+<li>How variables are arranged are different</li>
+<li>The state constraints should be defined using a special class which returns higher order time derivatives</li>
+</ol>
+<p>The optimization variables are arranged by
+1. Trajectory region, (2*N - 1) * [q, dq, ddq, …, u, p]
+2. t0 and tf region, it might be empty
+3. addX region, of length lenAddX
+4. gamma region, of length (N-1) * (man_constr.nf)
+5. Auxiliary objective region</p>
+<dl class="method">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>sys</em>, <em>N</em>, <em>t0</em>, <em>tf</em>, <em>man_constr</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for the class, the user is required to provide dynamical system, discretization size, 
+allowable times, state manifold constraint, and possibly auxiliary variables.</p>
+<p>sys : the system instance which describes system dynamics
+N : int, discretization grid size
+t0 : float/array-like, allowable initial time
+tf : float/array-like, allowable final time
+man_constr : manifold constraint
+addx : list of addX / one addX / None, additional optimization variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.getGammaIndexByIndex">
+<code class="descname">getGammaIndexByIndex</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.getGammaIndexByIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the index of gamma by its index.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.parseF">
+<code class="descname">parseF</code><span class="sig-paren">(</span><em>guess</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.parseF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give an guess, evaluate it and parse into parts.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>guess</strong> – ndarray, (numSol, ) a guess or a solution to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict, containing objective and parsed constraints</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.preProcess">
+<code class="descname">preProcess</code><span class="sig-paren">(</span><em>defect_u=True</em>, <em>defect_p=False</em>, <em>gamma_bound=1</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.preProcess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the problem, allocating spaces.</p>
+<p>Compared with trajOptCollocProblem, it has new sets of variables, different constraints.
+It supports limitation of magnitude of gamma, as gamma_bound means.</p>
 </dd></dl>
 
 </dd></dl>
@@ -2248,6 +2353,7 @@ Unbounded variables shall always return 0, the same applies to equality-bounded 
 <li><a class="reference internal" href="#module-trajOptLib.snoptWrapper">trajOptLib.snoptWrapper module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptBase">trajOptLib.trajOptBase module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptCollocationProblem">trajOptLib.trajOptCollocationProblem module</a></li>
+<li><a class="reference internal" href="#module-trajOptLib.trajOptManifoldCollocationProblem">trajOptLib.trajOptManifoldCollocationProblem module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptMultiPhaseCollocationProblem">trajOptLib.trajOptMultiPhaseCollocationProblem module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptProblem">trajOptLib.trajOptProblem module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.utility">trajOptLib.utility module</a></li>
