@@ -64,6 +64,153 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-trajOptLib.classBuilder">
+<span id="trajoptlib-classbuilder-module"></span><h2>trajOptLib.classBuilder module<a class="headerlink" href="#module-trajOptLib.classBuilder" title="Permalink to this headline">¶</a></h2>
+<p>classBuilder.py</p>
+<p>This module provides versatile functions that helps user build up classes quickly.
+Specifically, it allows fast prototype of problems.
+However, the users have to write functions that are autograd compatible.
+Most basically, import autograd.numpy instead of numpy</p>
+<dl class="function">
+<dt id="trajOptLib.classBuilder.blockIndex">
+<code class="descclassname">trajOptLib.classBuilder.</code><code class="descname">blockIndex</code><span class="sig-paren">(</span><em>i</em>, <em>j</em>, <em>rows</em>, <em>cols</em>, <em>order='C'</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.blockIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a matrix block, we return the index of row and columns.</p>
+<p>For a matrix we choose a block using the upper left corner positioned 
+at (i, j) and size (row, col). Each element of the block has row and 
+col index, they are returned in two arrays. The order controls we use
+row or column major order</p>
+<p>For example, blockIndex(1, 3, 2, 3, ‘C’) returns 
+(array([1, 1, 1, 2, 2, 2]), array([3, 4, 5, 3, 4, 5]))
+:param i: int, the row of the upper left corner
+:param j: int, the column of the upper left corner
+:param rows: int, number of rows of the block
+:param cols: int, number of columns of the block
+:param order, char, (‘C’/’F’) if we return row or column major</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.classBuilder.daeSystemWrapper">
+<em class="property">class </em><code class="descclassname">trajOptLib.classBuilder.</code><code class="descname">daeSystemWrapper</code><span class="sig-paren">(</span><em>fun</em>, <em>nx</em>, <em>nu</em>, <em>np</em>, <em>nf</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.daeSystemWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.daeSystem" title="trajOptLib.trajOptBase.daeSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.daeSystem</span></code></a></p>
+<p>This class takes a function and returns a system.</p>
+<dl class="method">
+<dt id="trajOptLib.classBuilder.daeSystemWrapper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>fun</em>, <em>nx</em>, <em>nu</em>, <em>np</em>, <em>nf</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.daeSystemWrapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for the problem.</p>
+<p>fun : a function that implements f(t, x, u, p, *args) = 0 but does not depend on t
+nx : int, length of x
+nu : int, length of u
+np : int, length of p
+nf : int, length of output of f
+args : additional parameters</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.classBuilder.daeSystemWrapper.dyn">
+<code class="descname">dyn</code><span class="sig-paren">(</span><em>t</em>, <em>x</em>, <em>u</em>, <em>p</em>, <em>y</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.daeSystemWrapper.dyn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override class method</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.classBuilder.nonLinearPointConstrWrapper">
+<em class="property">class </em><code class="descclassname">trajOptLib.classBuilder.</code><code class="descname">nonLinearPointConstrWrapper</code><span class="sig-paren">(</span><em>fun</em>, <em>nx</em>, <em>nu</em>, <em>np</em>, <em>nc</em>, <em>index</em>, <em>lb=None</em>, <em>ub=None</em>, <em>args=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.nonLinearPointConstrWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.nonLinearPointConstr" title="trajOptLib.trajOptBase.nonLinearPointConstr"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.nonLinearPointConstr</span></code></a></p>
+<p>This class takes a function and wrap it as a point constraint.</p>
+<dl class="method">
+<dt id="trajOptLib.classBuilder.nonLinearPointConstrWrapper.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>X</em>, <em>F</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.nonLinearPointConstrWrapper.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>override a function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.classBuilder.nonLinearPointConstrWrapper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>fun</em>, <em>nx</em>, <em>nu</em>, <em>np</em>, <em>nc</em>, <em>index</em>, <em>lb=None</em>, <em>ub=None</em>, <em>args=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.nonLinearPointConstrWrapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for nonlinear point constraint. Also serve as path constraint.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>index</strong> – int, at which point is objective calculated</li>
+<li><strong>nc</strong> – int, dimension of constraint function</li>
+<li><strong>nu</strong><strong>, </strong><strong>np</strong> (<em>nx</em><em>,</em>) – int, dimensions</li>
+<li><strong>ub</strong> (<em>lb</em><em>,</em>) – lower and upper bound of the constraint function. None means equal to 0</li>
+<li><strong>gradmode</strong> – str, how gradient is provided</li>
+<li><strong>nG</strong> – int, number of nnz of Jacobian</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="trajOptLib.classBuilder.systemWrapper">
+<em class="property">class </em><code class="descclassname">trajOptLib.classBuilder.</code><code class="descname">systemWrapper</code><span class="sig-paren">(</span><em>fun</em>, <em>nx</em>, <em>nu</em>, <em>np</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.systemWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#trajOptLib.trajOptBase.system" title="trajOptLib.trajOptBase.system"><code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase.system</span></code></a></p>
+<p>This class takes a function and returns a system.</p>
+<dl class="method">
+<dt id="trajOptLib.classBuilder.systemWrapper.Jdyn">
+<code class="descname">Jdyn</code><span class="sig-paren">(</span><em>t</em>, <em>x</em>, <em>u</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.systemWrapper.Jdyn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamics function with Jacobian return.</p>
+<p>It has to be overriden.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong><strong>, </strong><strong>u</strong><strong>, </strong><strong>p</strong><strong>, </strong><strong>h</strong> (<em>t</em><em>,</em>) – see dyn</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">y: ndarray, either dotx or x_k+1</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">J: ndarray/spmatrix, returning Jacobian of this function evaluation</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.classBuilder.systemWrapper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>fun</em>, <em>nx</em>, <em>nu</em>, <em>np</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.systemWrapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<p>fun : a function that implements dot{x}=f(t, x, u, p, *args) but does not depend on t
+nx : int, length of x
+nu : int, length of u
+np : int, length of p
+args : additional parameters to function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.classBuilder.systemWrapper.dyn">
+<code class="descname">dyn</code><span class="sig-paren">(</span><em>t</em>, <em>x</em>, <em>u</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.classBuilder.systemWrapper.dyn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamics function without gradient information.</p>
+<p>It has to be overriden.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>t</strong> – float, time when evaluating system dynamics</li>
+<li><strong>x</strong> – np.ndarray, (nx,) state variable</li>
+<li><strong>u</strong> – np.ndarray, (nu,) control variable</li>
+<li><strong>p</strong> – np.ndarray, (np,) additional optimizing variable</li>
+<li><strong>h</strong> – float, used for discretized system. Integration step size</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">either dotx or x_k+1 depends on system type</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-trajOptLib.ipoptWrapper">
 <span id="trajoptlib-ipoptwrapper-module"></span><h2>trajOptLib.ipoptWrapper module<a class="headerlink" href="#module-trajOptLib.ipoptWrapper" title="Permalink to this headline">¶</a></h2>
 <p>ipoptWrapper.py</p>
@@ -131,6 +278,108 @@
 <code class="descname">solveRand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.ipoptWrapper.ipSolver.solveRand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use problem to generate a random guess and solve it from there.</p>
 <p>It generates a random initial guess (which might be far off for unknown problem) and use it to solve.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-trajOptLib.oopInterface">
+<span id="trajoptlib-oopinterface-module"></span><h2>trajOptLib.oopInterface module<a class="headerlink" href="#module-trajOptLib.oopInterface" title="Permalink to this headline">¶</a></h2>
+<p>oopInterface.py</p>
+<p>Construct a object oriented interface for problem solving.</p>
+<dl class="class">
+<dt id="trajOptLib.oopInterface.AbstractSolver">
+<em class="property">class </em><code class="descclassname">trajOptLib.oopInterface.</code><code class="descname">AbstractSolver</code><span class="sig-paren">(</span><em>system</em>, <em>N</em>, <em>tf</em>, <em>ip=False</em>, <em>config=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class that can provides abstract methods for a general solver.</p>
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>system</em>, <em>N</em>, <em>tf</em>, <em>ip=False</em>, <em>config=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for the problem.</p>
+<p>system : a dae system
+N : knot point size
+tf : float/array-like, final time
+ip : bool, if use interior point solver
+config : a configuration object for either snopt or ipopt</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.addLQRObj">
+<code class="descname">addLQRObj</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.addLQRObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a lqr objective.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.constructSolver">
+<code class="descname">constructSolver</code><span class="sig-paren">(</span><em>ip=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.constructSolver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.guessGen">
+<code class="descname">guessGen</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.guessGen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.parseSol">
+<code class="descname">parseSol</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.parseSol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a solution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.preProcess">
+<code class="descname">preProcess</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.preProcess" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.setUbound">
+<code class="descname">setUbound</code><span class="sig-paren">(</span><em>ulb</em>, <em>uub=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.setUbound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bounds on control.</p>
+<p>If uub is None, we are using -ulb and ulb as bounds</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.setXbound">
+<code class="descname">setXbound</code><span class="sig-paren">(</span><em>xlb</em>, <em>xub</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.setXbound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bounds for state variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.setx0">
+<code class="descname">setx0</code><span class="sig-paren">(</span><em>x0</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.setx0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bounds for initial states.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x0</strong> – ndarray, (ndyn*order,), initial state</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.setxf">
+<code class="descname">setxf</code><span class="sig-paren">(</span><em>xf</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.setxf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set bounds for final states.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xf</strong> – ndarray, (4,) final state</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.solve">
+<code class="descname">solve</code><span class="sig-paren">(</span><em>x0=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.solve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.oopInterface.AbstractSolver.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.oopInterface.AbstractSolver.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update bounds on x0 and xf</p>
 </dd></dl>
 
 </dd></dl>
@@ -351,6 +600,47 @@ In this class the user has to supply the size and bounds of those variables.</p>
 <p>This function should be inherited to define your own functions.
 A function with user supplied gradient information, nx, nf, ng should be set.</p>
 <dl class="method">
+<dt id="trajOptLib.trajOptBase.baseFun.__callf__">
+<code class="descname">__callf__</code><span class="sig-paren">(</span><em>x</em>, <em>F</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.baseFun.__callf__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function call with no gradient information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – ndarray, input to the function</li>
+<li><strong>F</strong> – ndarray, output of the function which is written inplace</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptBase.baseFun.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x</em>, <em>F</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.baseFun.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function call with no gradient information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – ndarray, input to the function</li>
+<li><strong>F</strong> – ndarray, output of the function which is written inplace</li>
+<li><strong>G</strong> – ndarray, gradient of the function in sparse form which stores the values</li>
+<li><strong>row</strong> – ndarray of int, stores the rows of the sparse gradient matrix</li>
+<li><strong>col</strong> – ndarray of int, stores the columns of the sparse gradient matrix</li>
+<li><strong>rec</strong> – bool, determine if we write values to row and col</li>
+<li><strong>needg</strong> – bool, determine if we need to calculate gradient and write to G</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptBase.baseFun.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>nx</em>, <em>nf</em>, <em>gradmode</em>, <em>ng=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.baseFun.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor for base function</p>
@@ -455,7 +745,7 @@ For different order, we are gonna have different number of defect constraints an
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">linearObj</code><span class="sig-paren">(</span><em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.linearObj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for directly add linear objective function over the entire decision variable.</p>
-<p>It serves for objective of form <span class="math notranslate">\(y=Ax\)</span> where <span class="math notranslate">\(x\)</span> is the collected long vector.</p>
+<p>It serves for objective of form <span class="math notranslate nohighlight">\(y=Ax\)</span> where <span class="math notranslate nohighlight">\(x\)</span> is the collected long vector.</p>
 <dl class="method">
 <dt id="trajOptLib.trajOptBase.linearObj.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.linearObj.__init__" title="Permalink to this definition">¶</a></dt>
@@ -490,7 +780,7 @@ For different order, we are gonna have different number of defect constraints an
 <em class="property">class </em><code class="descclassname">trajOptLib.trajOptBase.</code><code class="descname">linearPointObj</code><span class="sig-paren">(</span><em>index</em>, <em>A</em>, <em>nx</em>, <em>nu</em>, <em>np_</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.linearPointObj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">trajOptLib.trajOptBase._objectWithMatrix</span></code></p>
 <p>Class for directly add linear objective function over the entire decision variable.</p>
-<p>It serves for objective function of the form <span class="math notranslate">\(y=Ax\)</span> where <span class="math notranslate">\(x\)</span> is the concatenated vector of state, 
+<p>It serves for objective function of the form <span class="math notranslate nohighlight">\(y=Ax\)</span> where <span class="math notranslate nohighlight">\(x\)</span> is the concatenated vector of state, 
 control and parameter at a selected index.</p>
 <dl class="method">
 <dt id="trajOptLib.trajOptBase.linearPointObj.__init__">
@@ -524,7 +814,7 @@ control and parameter at a selected index.</p>
 <dt id="trajOptLib.trajOptBase.lqrObj.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>F=None</em>, <em>Q=None</em>, <em>R=None</em>, <em>xfbase=None</em>, <em>xbase=None</em>, <em>ubase=None</em>, <em>tfweight=None</em>, <em>P=None</em>, <em>pbase=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.lqrObj.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor for LQR objective function.</p>
-<p><span class="math notranslate">\(c=\|x_f-x_{fbase}\|_F + \Sigma (\|x-x_{base}\|_Q + \|u-u_{base}\|_R + \|p-p_{base}\|_P) * h\)</span></p>
+<p><span class="math notranslate nohighlight">\(c=\|x_f-x_{fbase}\|_F + \Sigma (\|x-x_{base}\|_Q + \|u-u_{base}\|_R + \|p-p_{base}\|_P) * h\)</span></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -671,6 +961,29 @@ control and parameter at a selected index.</p>
 To make it versatile, the user is allowed to pass indices so we can directly evaluate those variables.
 User friendly classes are also created so the indices are calculated internally.</p>
 <dl class="method">
+<dt id="trajOptLib.trajOptBase.quadPenalty.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.quadPenalty.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function call with no gradient information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – ndarray, input to the function</li>
+<li><strong>F</strong> – ndarray, output of the function which is written inplace</li>
+<li><strong>G</strong> – ndarray, gradient of the function in sparse form which stores the values</li>
+<li><strong>row</strong> – ndarray of int, stores the rows of the sparse gradient matrix</li>
+<li><strong>col</strong> – ndarray of int, stores the columns of the sparse gradient matrix</li>
+<li><strong>rec</strong> – bool, determine if we write values to row and col</li>
+<li><strong>needg</strong> – bool, determine if we need to calculate gradient and write to G</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptBase.quadPenalty.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>indices</em>, <em>weights</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptBase.quadPenalty.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor for the class.</p>
@@ -809,6 +1122,26 @@ This function should be inherited and users are supposed to override dyn/Jdyn fu
 <p>The system dynamics constraints are imposed using direct collocation approach with some additional optimization
 variables as suggested by others.</p>
 <dl class="method">
+<dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate those constraints, objective functions, and constraints. It simultaneously allocates sparsity matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – ndarray, the solution to the problem</li>
+<li><strong>y</strong> – ndarray, return F</li>
+<li><strong>row</strong><strong>, </strong><strong>col</strong> (<em>G</em><em>,</em>) – ndarray, information of gradient</li>
+<li><strong>needg</strong> (<em>rec</em><em>,</em>) – if we record/ if we need gradient</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>sys</em>, <em>N</em>, <em>t0</em>, <em>tf</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize problem by system, discretization grid size, and allowable time</p>
@@ -854,7 +1187,7 @@ I reorder variable so q, dq, ddq, u, p are at consecutive place.</p>
 
 <dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addConstr">
-<code class="descname">addConstr</code><span class="sig-paren">(</span><em>constr</em>, <em>path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addConstr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">addConstr</code><span class="sig-paren">(</span><em>constr</em>, <em>path=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addConstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a constraint to the problem.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -997,16 +1330,19 @@ I reorder variable so q, dq, ddq, u, p are at consecutive place.</p>
 
 <dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addNonLinearPointConstr">
-<code class="descname">addNonLinearPointConstr</code><span class="sig-paren">(</span><em>pntConstr</em>, <em>path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addNonLinearPointConstr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">addNonLinearPointConstr</code><span class="sig-paren">(</span><em>pntConstr</em>, <em>path=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.addNonLinearPointConstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add point constraint.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>pntConstr</strong> – pointConstr class</li>
 <li><strong>path</strong> – bool, if this obj</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Kwargs:</th><td class="field-body"><p class="first last">additional parameters, users can specify starting and ending indexes by specifying start and end</p>
 </td>
 </tr>
 </tbody>
@@ -1123,7 +1459,7 @@ You can always use addStateQuadPenalty/addControlQuadPenalty/addParamQuadPenalty
 
 <dl class="method">
 <dt id="trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromTraj">
-<code class="descname">genGuessFromTraj</code><span class="sig-paren">(</span><em>X=None</em>, <em>U=None</em>, <em>P=None</em>, <em>t0=None</em>, <em>tf=None</em>, <em>addx=None</em>, <em>tstamp=None</em>, <em>interp_kind='linear'</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromTraj" title="Permalink to this definition">¶</a></dt>
+<code class="descname">genGuessFromTraj</code><span class="sig-paren">(</span><em>X=None</em>, <em>U=None</em>, <em>P=None</em>, <em>t0=None</em>, <em>tf=None</em>, <em>addx=None</em>, <em>tstamp=None</em>, <em>obj=None</em>, <em>interp_kind='linear'</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptCollocationProblem.trajOptCollocProblem.genGuessFromTraj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate an initial guess for the problem with user specified information.</p>
 <p>An amazing feature is the user does not have to give a solution of exactly the same time-stamped trajectory used internally.
 Interpolation approaches are used in such scenarios.
@@ -1139,6 +1475,7 @@ The user is not required to provide them all, although we suggest they do so.</p
 <li><strong>t0/tf</strong> – float/array-like, initial/final time. If None, we randomly generate one</li>
 <li><strong>addx</strong> – list of ndarray, guess of addx, if applicable</li>
 <li><strong>tstamp</strong> – ndarray, (x,), None if the X/U/P are provided using equidistant grid.</li>
+<li><strong>obj</strong> – ndarray, (x,) the objective part</li>
 <li><strong>interp_kind</strong> – str, interpolation type for scipy.interpolate.interp1d, can be (‘linear’, ‘nearest’, ‘zero’, ‘slinear’, ‘quadratic’, ‘cubic’)</li>
 </ul>
 </td>
@@ -1476,6 +1813,22 @@ For a constraint phi(q)=0, by order we know up to which we should differentiate 
 However, user is allowed to control to any level, position / velocity / acceleration level.
 For different daeOrder, the implementation is slightly different</p>
 <dl class="method">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.manifoldConstr.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x</em>, <em>F</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.manifoldConstr.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constraint evaluation up to order with no correction.</p>
+<p>This function serves as a basic path constraint imposed on every knot point
+It is different from nonLinearPointConstr in the following:
+1. It is autonomous and time is not considered
+2. Only state variables are passed in, no u or p is used</p>
+<p>x : ndarray, the state variables including q, dq, ddq, etc
+gamma : ndarray, the correction term
+F : ndarray, it stores the calculation values
+G, row, col : ndarray, the triplet for Jacobian return
+rec, needg : control if G is calculated and row, col are modified</p>
+<p>This subroutine has no return.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptManifoldCollocationProblem.manifoldConstr.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>nx</em>, <em>nc</em>, <em>order=2</em>, <em>nG=0</em>, <em>nnzJx=0</em>, <em>nnzJg=0</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.manifoldConstr.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor for the class.</p>
@@ -1509,6 +1862,26 @@ nnzJg : int, nnz for Jacobian of (J^T gamma) w.r.t. gamma</p>
 3. addX region, of length lenAddX
 4. gamma region, of length (N-1) * (man_constr.nf)
 5. Auxiliary objective region</p>
+<dl class="method">
+<dt id="trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate those constraints, objective functions, and constraints. It simultaneously allocates sparsity matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – ndarray, the solution to the problem</li>
+<li><strong>y</strong> – ndarray, return F</li>
+<li><strong>row</strong><strong>, </strong><strong>col</strong> (<em>G</em><em>,</em>) – ndarray, information of gradient</li>
+<li><strong>needg</strong> (<em>rec</em><em>,</em>) – if we record/ if we need gradient</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>sys</em>, <em>N</em>, <em>t0</em>, <em>tf</em>, <em>man_constr</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptManifoldCollocationProblem.trajOptManifoldCollocProblem.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1576,8 +1949,7 @@ I will also change code style to suppress those warnings.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>phase1/phase2</strong> – int, phase number that constraint is imposed. We read data from them</li>
 <li><strong>a1/a2</strong> – ndarray, the constraint, :math: <cite>l le A_1 x_1 + A_2 x_2 le u</cite></li>
-<li><strong>ub</strong> (<em>lb</em><em>,</em>) – lower and upper bound of the constraint function. None means equal to 0</li>
-<li><strong>nG</strong> – int, number of nnz of Jacobian</li>
+<li><strong>lb/ub</strong> – lower and upper bound of the constraint function. None means equal to 0</li>
 <li><strong>index1/index2</strong> – int, by default we connect last point of phase 1 with first point of phase 2. However, we allow manual assignment of them.</li>
 <li><strong>adda</strong> – ndarray, if additional parameter comes into play, we use this</li>
 <li><strong>addx_index</strong> – int, index of the additional parameters</li>
@@ -1602,6 +1974,14 @@ I will also change code style to suppress those warnings.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for defining point constraint function.</p>
 <dl class="method">
+<dt id="trajOptLib.trajOptMultiPhaseCollocationProblem.NonLinearConnectConstr.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>F</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.NonLinearConnectConstr.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call and evaluate the constraint function. x1 and x2 are points in phase 1 and phase 2.</p>
+<p>I return them together in G, row, col since it might be derived from sympy so thay are together.
+But, human derived formulas love the previous one better</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="trajOptLib.trajOptMultiPhaseCollocationProblem.NonLinearConnectConstr.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>phase1</em>, <em>phase2</em>, <em>nc</em>, <em>lb=None</em>, <em>ub=None</em>, <em>nG=None</em>, <em>index1=-1</em>, <em>index2=0</em>, <em>addx_index=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.NonLinearConnectConstr.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor for nonlinear point constraint. Also serve as path constraint.</p>
@@ -1621,6 +2001,14 @@ I will also change code style to suppress those warnings.</p>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt>
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>F</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em>, <em>addx=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Call and evaluate the constraint function. x1 and x2 are points in phase 1 and phase 2.</p>
+<p>I return them together in G, row, col since it might be derived from sympy so thay are together.
+But, human derived formulas love the previous one better</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="method">
@@ -1638,6 +2026,30 @@ I will also change code style to suppress those warnings.</p>
 <p>A class for definition of trajectory optimization problem using collocation constraints with support for phase transition.</p>
 <p>The support of multiple phase is implemented by calling functions defined in trajOptCollocProblem since I do not want to reinvent the wheels.
 I can conveniently add support for other constraints that connects two phases.</p>
+<dl class="method">
+<dt id="trajOptLib.trajOptMultiPhaseCollocationProblem.TrajOptMultiPhaseCollocProblem.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.TrajOptMultiPhaseCollocProblem.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate those constraints, objective functions, and constraints. It simultaneously allocates sparsity matrix.</p>
+<p>We do this in several parts:
+- for each phase, we call the private functions explicitly. Ugly hack
+- call the connection nonlinear constraints
+- call the nonlinear objective functions associated with addx</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – ndarray, the solution to the problem</li>
+<li><strong>y</strong> – ndarray, return F</li>
+<li><strong>row</strong><strong>, </strong><strong>col</strong> (<em>G</em><em>,</em>) – ndarray, information of gradient</li>
+<li><strong>needg</strong> (<em>rec</em><em>,</em>) – if we record / if we need gradient</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="trajOptLib.trajOptMultiPhaseCollocationProblem.TrajOptMultiPhaseCollocProblem.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>probs</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptMultiPhaseCollocationProblem.TrajOptMultiPhaseCollocProblem.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1931,6 +2343,32 @@ It calculate the space required for SNOPT and allocates sparsity structure if ne
 <li>Construct the solver</li>
 <li>Use the solver to solve with either automatic guess or user provided guess</li>
 </ol>
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.__callf__">
+<code class="descname">__callf__</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.__callf__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate those constraints and objective functions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trajOptLib.trajOptProblem.trajOptProblem.__callg__">
+<code class="descname">__callg__</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>G</em>, <em>row</em>, <em>col</em>, <em>rec</em>, <em>needg</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.__callg__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate those constraints, objective functions, and constraints. It simultaneously allocates sparsity matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – ndarray, the solution to the problem</li>
+<li><strong>y</strong> – ndarray, return F</li>
+<li><strong>row</strong><strong>, </strong><strong>col</strong> (<em>G</em><em>,</em>) – ndarray, information of gradient</li>
+<li><strong>needg</strong> (<em>rec</em><em>,</em>) – if we record/ if we need gradient</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="trajOptLib.trajOptProblem.trajOptProblem.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>sys</em>, <em>N</em>, <em>t0</em>, <em>tf</em>, <em>gradmode=True</em>, <em>addx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.trajOptProblem.trajOptProblem.__init__" title="Permalink to this definition">¶</a></dt>
@@ -2247,6 +2685,22 @@ Unbounded variables shall always return 0, the same applies to equality-bounded 
 </dd></dl>
 
 <dl class="function">
+<dt id="trajOptLib.utility.getInf">
+<code class="descclassname">trajOptLib.utility.</code><code class="descname">getInf</code><span class="sig-paren">(</span><em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.utility.getInf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an inf array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> – int, size of the array to return, None means scalar</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns y:</th><td class="field-body">the scalar inf or array of inf</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="trajOptLib.utility.interp">
 <code class="descclassname">trajOptLib.utility.</code><code class="descname">interp</code><span class="sig-paren">(</span><em>t</em>, <em>X</em>, <em>teval</em>, <em>Xeval</em>, <em>kind</em><span class="sig-paren">)</span><a class="headerlink" href="#trajOptLib.utility.interp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do interpolation on previous calculated solution.</p>
@@ -2349,7 +2803,9 @@ Unbounded variables shall always return 0, the same applies to equality-bounded 
 <li><a class="reference internal" href="#">trajOptLib package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-trajOptLib.classBuilder">trajOptLib.classBuilder module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.ipoptWrapper">trajOptLib.ipoptWrapper module</a></li>
+<li><a class="reference internal" href="#module-trajOptLib.oopInterface">trajOptLib.oopInterface module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.snoptWrapper">trajOptLib.snoptWrapper module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptBase">trajOptLib.trajOptBase module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptCollocationProblem">trajOptLib.trajOptCollocationProblem module</a></li>
@@ -2399,7 +2855,7 @@ Unbounded variables shall always return 0, the same applies to equality-bounded 
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Gao Tang.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
     </div>
   </body>
 </html>
