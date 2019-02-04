@@ -82,9 +82,7 @@
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.classBuilder">trajOptLib.classBuilder module</a></li>
-<li><a class="reference internal" href="#trajoptlib-ipoptwrapper-module">trajOptLib.ipoptWrapper module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.oopInterface">trajOptLib.oopInterface module</a></li>
-<li><a class="reference internal" href="#module-trajOptLib.snoptWrapper">trajOptLib.snoptWrapper module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptBase">trajOptLib.trajOptBase module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptCollocationProblem">trajOptLib.trajOptCollocationProblem module</a></li>
 <li><a class="reference internal" href="#module-trajOptLib.trajOptManifoldCollocationProblem">trajOptLib.trajOptManifoldCollocationProblem module</a></li>
@@ -313,9 +311,6 @@ row or column major order</p>
 </dd></dl>
 
 </div>
-<div class="section" id="trajoptlib-ipoptwrapper-module">
-<h2>trajOptLib.ipoptWrapper module<a class="headerlink" href="#trajoptlib-ipoptwrapper-module" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-trajOptLib.oopInterface">
 <span id="trajoptlib-oopinterface-module"></span><h2>trajOptLib.oopInterface module<a class="headerlink" href="#module-trajOptLib.oopInterface" title="Permalink to this headline">¶</a></h2>
 <p>oopInterface.py</p>
@@ -425,181 +420,6 @@ row or column major order</p>
 <dd><p>Update bounds on x0 and xf</p>
 </dd></dl>
 
-</dd></dl>
-
-</div>
-<div class="section" id="module-trajOptLib.snoptWrapper">
-<span id="trajoptlib-snoptwrapper-module"></span><h2>trajOptLib.snoptWrapper module<a class="headerlink" href="#module-trajOptLib.snoptWrapper" title="Permalink to this headline">¶</a></h2>
-<p>snoptWrapper.py</p>
-<p>Wrapper functions for calling snopt</p>
-<dl class="function">
-<dt id="trajOptLib.snoptWrapper.directSolve">
-<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">directSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trajOptLib/snoptWrapper.html#directSolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trajOptLib.snoptWrapper.directSolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>fun</strong> – A function like y = f(x) where x, y are np.ndarray</li>
-<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
-<li><strong>nf</strong> – int, length of y</li>
-<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
-<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
-<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
-<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
-<li><strong>cfg</strong> – libsnopt.SnoptConfig, configuration of snopt solver</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="trajOptLib.snoptWrapper.gradSolve">
-<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">gradSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trajOptLib/snoptWrapper.html#gradSolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trajOptLib.snoptWrapper.gradSolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>fun</strong> – A function like y, J = f(x) where x, y, J are np.ndarray</li>
-<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
-<li><strong>nf</strong> – int, length of y</li>
-<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
-<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
-<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
-<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
-<li><strong>cfg</strong> – libsnopt.SnoptConfig, configuration of snopt solver</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="trajOptLib.snoptWrapper.inDirectSolve">
-<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">inDirectSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trajOptLib/snoptWrapper.html#inDirectSolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trajOptLib.snoptWrapper.inDirectSolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>fun</strong> – A function like f(x, y) where x, y are np.ndarray</li>
-<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
-<li><strong>nf</strong> – int, length of y</li>
-<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
-<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
-<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
-<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
-<li><strong>cfg</strong> – libsnopt.SnoptConfig, configuration of snopt solver</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="trajOptLib.snoptWrapper.inGradSolve">
-<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">inGradSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trajOptLib/snoptWrapper.html#inGradSolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trajOptLib.snoptWrapper.inGradSolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>fun</strong> – A function like f(x, y, J) where x, y, J are np.ndarray</li>
-<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
-<li><strong>nf</strong> – int, length of y</li>
-<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
-<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
-<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
-<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
-<li><strong>cfg</strong> – libsnopt.SnoptConfig, configuration of snopt solver</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="trajOptLib.snoptWrapper.inSpGradSolve">
-<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">inSpGradSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>nG=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trajOptLib/snoptWrapper.html#inSpGradSolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trajOptLib.snoptWrapper.inSpGradSolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>fun</strong> – A function like f(x, y, G, row, col, rec) where x, y are np.ndarray, J is scipy.sparse.csc_matrix</li>
-<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
-<li><strong>nf</strong> – int, number of f</li>
-<li><strong>nG</strong> – int number nonzero in Jacobian</li>
-<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
-<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
-<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
-<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
-<li><strong>cfg</strong> – libsnopt.SnoptConfig, configuration of snopt solver</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="trajOptLib.snoptWrapper.parseResult">
-<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">parseResult</code><span class="sig-paren">(</span><em>rst</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trajOptLib/snoptWrapper.html#parseResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trajOptLib.snoptWrapper.parseResult" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parse the results returned by snopt and convert to a dict.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="trajOptLib.snoptWrapper.spGradSolve">
-<code class="descclassname">trajOptLib.snoptWrapper.</code><code class="descname">spGradSolve</code><span class="sig-paren">(</span><em>fun</em>, <em>x0</em>, <em>nf=None</em>, <em>nG=None</em>, <em>xlb=None</em>, <em>xub=None</em>, <em>clb=None</em>, <em>cub=None</em>, <em>cfg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trajOptLib/snoptWrapper.html#spGradSolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trajOptLib.snoptWrapper.spGradSolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directly solve the optimization problem described using fun with guess x0</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>fun</strong> – A function like y, spJ = f(x) where x, y are np.ndarray, J is scipy.sparse.csc_matrix</li>
-<li><strong>nf</strong> – int, length of y</li>
-<li><strong>nG</strong> – int, nnz of spJ</li>
-<li><strong>x0</strong> – np.ndarray (nx,) the initial guess to the solver</li>
-<li><strong>xlb</strong> – np.ndarray (nx,) lower bound on decision variable x</li>
-<li><strong>xub</strong> – np.ndarray (nx,) upper bound on decision variable x</li>
-<li><strong>clb</strong> – np.ndarray (nc,) lower bound on return function c</li>
-<li><strong>cub</strong> – np.ndarray (nc,) upper bound on return function c</li>
-<li><strong>cfg</strong> – libsnopt.SnoptConfig, configuration of snopt solver</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionary containing the solution</p>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
